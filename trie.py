@@ -56,7 +56,7 @@ class Trie(object):
             raise TypeError("'word' needs to be a string")
 
         cur_node = self.head
-        word_norm = word.lower()
+        word_norm = word.encode("utf8").lower()
         finished = True
 
         for idx, value in enumerate(word_norm):
@@ -89,7 +89,7 @@ class Trie(object):
             raise TypeError("'prefix' needs to be a string")
 
         result = set()
-        prefix_norm = prefix.lower()
+        prefix_norm = prefix.encode("utf8").lower()
 
         # Computing top node for BFS search
         top_node = self.head
@@ -129,7 +129,7 @@ class Trie(object):
         if not isinstance(word, str):
             raise TypeError("'word' needs to be a string")
 
-        word_norm = word.lower()
+        word_norm = word.encode("utf8").lower()
 
         cur_node = self.head
         for letter in word_norm:
