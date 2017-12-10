@@ -40,4 +40,4 @@ The normal usage of the API should be done from the UI/UX interface by calling t
 {'matches': ['Liverpool', 'Liverpool Line Street'], 'next_chars': [' ']}
 ```
 
-For a more detailed documentation of the API, please refer to the contents of the [**doc**](https://github.com/DioPires/train_ticket_machine/tree/master/doc) directory. There you will find an HTML page and a PDF generated using [Sphinx](http://www.sphinx-doc.org/en/stable/), the Python Documentation Generator.
+For a more detailed documentation of the API, please refer to the contents of the [**doc**](https://github.com/DioPires/train_ticket_machine/tree/master/doc) directory. There you will find an HTML page and a PDF generated using [Sphinx](http://www.sphinx-doc.org/en/stable/), the Python Documentation Generator. To view them properly, you should clone the repository and open them from there. They do not display all the documentation correctly if opened from outside the **doc** directory.
