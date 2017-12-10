@@ -11,6 +11,10 @@ the user can type.
 The search algorithm is implemented using a [Trie](https://en.wikipedia.org/wiki/Trie)
 together with [BFS](https://en.wikipedia.org/wiki/Breadth-first_search).
 
+The autocomplete API is implemented using a [Trie](https://en.wikipedia.org/wiki/Trie>) as a data structure to save all the possible words. The Trie is computed from these words in the loading phase and this ony happens once.
+
+During runtime, when users are typing and the API is outputting the possible words and the next available characters, the search in the Trie is done using the [BFS](https://en.wikipedia.org/wiki/Breadth-first_search>) algorithm.
+
 ## Usage
 
 The API exposed methods to:
@@ -20,6 +24,8 @@ The API exposed methods to:
 * Check if a given word exists
 
 ### Normal usage
+
+The normal usage of the API should be done from the UI/UX interface by calling the Trie.\ *from_prefix* method for every character chosen by the user. Nonetheless, here is an example of computing the Trie from a list of words and getting the possible words and next characters from prefixes:
 
 ```
 >>> import trie
