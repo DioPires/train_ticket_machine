@@ -27,10 +27,6 @@ The API exposed methods to:
 >>> t.add_words(words)
 >>> t.from_prefix("dart")
 {'matches': ['Dartford', 'Dartmouth'], 'next_chars': ['m', 'f']}
->>> t.word_exists("Liverpool Line Street")
-True
->>> t.word_exists("liverpool line street", ignore_case=False)
-False
->>> t.word_exists("Liverpools")
-False
+>>> t.from_prefix("liverpool")
+{'matches': ['Liverpool', 'Liverpool Line Street'], 'next_chars': [' ']}
 ```
