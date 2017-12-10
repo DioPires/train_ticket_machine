@@ -25,7 +25,7 @@ The API exposed methods to:
 
 ### Normal usage
 
-The normal usage of the API should be done from the UI/UX interface by calling the Trie.\ *from_prefix* method for every character chosen by the user. Nonetheless, here is an example of computing the Trie from a list of words and getting the possible words and next characters from prefixes:
+The normal usage of the API should be done from the UI/UX interface by calling the Trie.*from_prefix* method for every character chosen by the user. Nonetheless, here is an example of computing the Trie from a list of words and getting the possible words and next characters from prefixes:
 
 ```
 >>> import trie
