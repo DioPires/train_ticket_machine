@@ -1,6 +1,18 @@
+"""
+.. module:: Trie
+   :synopsis: API implementing a Trie structured to be used for autocomplete use cases
+
+.. moduleauthor:: Diogo Pires <diogo.fpmp.pires@gmail.com>
+
+"""
+
 
 class Node(object):
     """
+    This class implements Nodes of a Trie.
+
+    Normal usage of the class is
+
     >>> n = Node("d")
     >>> n.add_child("da")
     >>> n
@@ -16,6 +28,13 @@ class Node(object):
     CNT = -1 # Starts at -1 because the head node of a Trie has no data
 
     def __init__(self, data=None, label=None):
+        """
+        :param data: The identifier of the node in the Trie
+        :type data: str
+        :param label: A label of the node
+        :type label: str
+        :returns: None
+        """
         self.data = data
         self.label = label
         self.children = {}
@@ -23,10 +42,27 @@ class Node(object):
         Node.CNT += 1
 
     def add_child(self, data):
+        """
+        Add child to node.
+
+        :param data: The identifier of the node in the Trie
+        :type data: str
+        """
         self.children[data] = Node(data)
 
     def __getitem__(self, data):
-        return self.children[data]
+        """
+        Get node from children.
+
+        :param data: The identifier of the node in the Trie
+        :type data: str
+        :raises: KeyError
+        """
+        try:
+            return self.children[data]
+        except KeyError:
+            raise KeyError("The node ID requested does not exist in the children of " + \
+                           "node with ID {} and label {}".format(self.data, self.label))
 
     def __repr__(self):
         return "<data --> {} (children={})>".format(self.data, list(self.children.keys()))
@@ -34,6 +70,14 @@ class Node(object):
 
 class Trie(object):
     """
+    This class implements a Trie data structure using BFS as the search algorithm within the Trie
+
+    Normal usage of the class should be done from the UI/UX interface
+    by calling the Trie.from_prefix method for every character chosen by 
+    the user.
+
+    Nonetheless, an example is
+
     >>> t = Trie()
     >>> words = ["Dartford", "Dartmouth", "Tower Hill",
     ...          "Derby", "Liverpool", "Liverpool Line Street",
@@ -51,7 +95,14 @@ class Trie(object):
     def __repr__(self):
         return "<trie with {} nodes>".format(Node.CNT)
 
-    def add_word(self, word):
+    def _add_word(self, word):
+        """
+        Add word to Trie. Used internally during load period before Trie is used.
+    
+        :param word: String to be inserted as a node in the Trie
+        :type word: str
+        :raises: TypeError
+        """
         if not isinstance(word, str):
             raise TypeError("'word' needs to be a string")
 
@@ -76,13 +127,28 @@ class Trie(object):
         cur_node.is_key = True
 
     def add_words(self, words):
+        """
+        Add list of words to Trie. Should be used during load period before Trie is used.
+    
+        :param words: List of strings to be inserted as nodes in the Trie
+        :type word: list
+        :raises: TypeError
+        """
         if not isinstance(words, list):
-            raise ValueError("'words' needs to be a list")
+            raise TypeError("'words' needs to be a list")
         
         for entry in words:
-            self.add_word(entry)
+            self._add_word(entry)
 
     def from_prefix(self, prefix):
+        """
+        Check what are the possible words given a prefix. Uses BFS search.
+    
+        :param prefix: String from which to check the possible words in the Trie
+        :type prefix: str
+        :returns: Dictionary with the possible words and the next available characters
+        :raises: ValueError, TypeError
+        """
         if prefix is None:
             raise ValueError("'prefix' cannot be null")
         if not isinstance(prefix, str):
@@ -124,6 +190,16 @@ class Trie(object):
         return result_out
 
     def word_exists(self, word, ignore_case=True):
+        """
+        Check if a given word exists in the Trie.
+    
+        :param word: String to check for correspondences in the Trie
+        :type word: str
+        :param ignore_case: Boolean to indicate if case should be taken into consideration
+        :type ignore_case: bool
+        :returns: True, False
+        :raises: ValueError, TypeError
+        """
         if word is None:
             raise ValueError("'word' cannot be null")
         if not isinstance(word, str):
@@ -145,6 +221,16 @@ class Trie(object):
 
     @staticmethod
     def _output(result, prefix):
+        """
+        Given a list of words and the used prefix, outputs the words
+        alphabetically ordered and the next possible characters.
+    
+        :param result: List of words
+        :type word: list
+        :param prefix: Prefix used in search
+        :type prefix: str
+        :returns: Dictionary with the possible words and the next available characters
+        """
         result_out = {}
         result_out["matches"] = result
         result_out["next_chars"] = set()
