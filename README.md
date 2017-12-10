@@ -1,7 +1,10 @@
 # Train ticket machine
 
-Challenge where one is asked to develop a search algorithm to be used in a
-train ticket machine to help users entering the name of stations.
+Challenge where one is asked to develop a search algorithm to be used
+in a train ticket machine to help users entering the name of stations.
+For every character users type, the API computes the possible words
+from the characters already typed and the next possible characters
+the user can type.
 
 ## Implementation
 
