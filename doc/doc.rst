@@ -40,9 +40,37 @@ The normal usage of the API should be done from the UI/UX interface by calling t
    >>> t.from_prefix("liverpool")
    {'matches': ['Liverpool', 'Liverpool Line Street'], 'next_chars': [' ']}
 
+Tests
+=====
+
+The API was tested using three different sets of words, which differ in size. All the tests and the words set are in the **tests** directory in the project's `GitHub page <https://github.com/DioPires/train_ticket_machine>`_. The tests are done using the *unittest* Python module.
+
+The first test is done using a small word set of train stations that were provided in the problem statement. To run the test, go to the **tests** directory and type:
+
+::
+   
+   python -m unittest test_stations
+
+The second test is done using a larger word set taken from `here <https://svnweb.freebsd.org/csrg/share/dict/words>`_. The set is composed by 25000+ words in English. To run the test, go to the **tests** directory and type:
+
+::
+   
+   python -m unittest test_25000_words
+
+The third and last test is done using a big word set taken from `here <https://github.com/dwyl/english-words>`_. This set is composed by 466000+ words in English. To run the test, go to the **tests** directory and type:
+
+::
+   
+   python -m unittest test_466000_words
+
+The tests can also be run all at once. Go to the **tests** directory and type:
+
+::
+   
+   python -m unittest run_tests
+   
 API documentation
 =================
-
 
 .. automodule:: trie
 	:members:
