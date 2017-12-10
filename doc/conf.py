@@ -109,6 +109,8 @@ htmlhelp_basename = 'TrainTicketMachinedoc'
 # -- Options for LaTeX output ---------------------------------------------
 
 latex_elements = {
+    'extraclassoptions': 'openany',
+    'printindex': '',
     # The paper size ('letterpaper' or 'a4paper').
     #
     # 'papersize': 'letterpaper',
@@ -131,7 +133,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'TrainTicketMachine.tex', u'Train Ticket Machine Documentation',
-     u'Diogo Pires', 'manual'),
+     u'Diogo Pires', 'howto'),
 ]
 
 
