@@ -1,0 +1,391 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to Train Ticket Machine’s documentation! &mdash; Train Ticket Machine 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Train Ticket Machine 0.1 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> Train Ticket Machine
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to Train Ticket Machine&#8217;s documentation!</a></li>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#implementation">Implementation</a></li>
+<li><a class="reference internal" href="#normal-api-usage">Normal API usage</a></li>
+<li><a class="reference internal" href="#tests">Tests</a></li>
+<li><a class="reference internal" href="#module-trie">API documentation</a></li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Train Ticket Machine</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Welcome to Train Ticket Machine&#8217;s documentation!</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/doc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-train-ticket-machine-s-documentation">
+<h1>Welcome to Train Ticket Machine&#8217;s documentation!<a class="headerlink" href="#welcome-to-train-ticket-machine-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>Challenge where one is asked to develop a search algorithm to be used in a train ticket machine to help users entering the name of stations. For every character users type, the API computes the possible words from the characters already typed and the next possible characters the user can type.</p>
+</div>
+<div class="section" id="implementation">
+<h1>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h1>
+<p>The autocomplete API is implemented using a <a class="reference external" href="https://en.wikipedia.org/wiki/Trie">Trie</a> as a data structure to save all the possible words. The Trie is computed from these words in the loading phase and this ony happens once.</p>
+<p>During runtime, when users are typing and the API is outputting the possible words and the next available characters, the search in the Trie is done using the <a class="reference external" href="https://en.wikipedia.org/wiki/Breadth-first_search">BFS</a> algorithm.</p>
+</div>
+<div class="section" id="normal-api-usage">
+<h1>Normal API usage<a class="headerlink" href="#normal-api-usage" title="Permalink to this headline">¶</a></h1>
+<p>The normal usage of the API should be done from the UI/UX interface by calling the Trie.<em>from_prefix</em> method for every character chosen by the user. Nonetheless, here is an example of computing the Trie from a list of words and getting the possible words and next characters from prefixes:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">trie</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Dartford&quot;</span><span class="p">,</span> <span class="s2">&quot;Dartmouth&quot;</span><span class="p">,</span> <span class="s2">&quot;Tower Hill&quot;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="s2">&quot;Derby&quot;</span><span class="p">,</span> <span class="s2">&quot;Liverpool&quot;</span><span class="p">,</span> <span class="s2">&quot;Liverpool Line Street&quot;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="s2">&quot;Paddington&quot;</span><span class="p">,</span> <span class="s2">&quot;Euston&quot;</span><span class="p">,</span> <span class="s2">&quot;London Bridge&quot;</span><span class="p">,</span> <span class="s2">&quot;Victoria&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">trie</span><span class="o">.</span><span class="n">Trie</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">add_words</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">from_prefix</span><span class="p">(</span><span class="s2">&quot;dart&quot;</span><span class="p">)</span>
+<span class="go">{&#39;matches&#39;: [&#39;Dartford&#39;, &#39;Dartmouth&#39;], &#39;next_chars&#39;: [&#39;m&#39;, &#39;f&#39;]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">from_prefix</span><span class="p">(</span><span class="s2">&quot;liverpool&quot;</span><span class="p">)</span>
+<span class="go">{&#39;matches&#39;: [&#39;Liverpool&#39;, &#39;Liverpool Line Street&#39;], &#39;next_chars&#39;: [&#39; &#39;]}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tests">
+<h1>Tests<a class="headerlink" href="#tests" title="Permalink to this headline">¶</a></h1>
+<p>The API was tested using three different sets of words, which differ in size. All the tests and the words set are in the <strong>tests</strong> directory in the project&#8217;s <a class="reference external" href="https://github.com/DioPires/train_ticket_machine">GitHub page</a>. The tests are done using the <em>unittest</em> Python module.</p>
+<p>The first test is done using a small word set of train stations that were provided in the problem statement. To run the test, go to the <strong>tests</strong> directory and type:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">unittest</span> <span class="n">test_stations</span>
+</pre></div>
+</div>
+<p>The second test is done using a larger word set taken from <a class="reference external" href="https://svnweb.freebsd.org/csrg/share/dict/words">here</a>. The set is composed by 25000+ words in English. To run the test, go to the <strong>tests</strong> directory and type:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">unittest</span> <span class="n">test_25000_words</span>
+</pre></div>
+</div>
+<p>The third and last test is done using a big word set taken from <a class="reference external" href="https://github.com/dwyl/english-words">here</a>. This set is composed by 466000+ words in English. To run the test, go to the <strong>tests</strong> directory and type:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">unittest</span> <span class="n">test_466000_words</span>
+</pre></div>
+</div>
+<p>The tests can also be run all at once. Go to the <strong>tests</strong> directory and type:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">unittest</span> <span class="n">run_tests</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module-trie">
+<span id="api-documentation"></span><h1>API documentation<a class="headerlink" href="#module-trie" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-Trie"></span><dl class="class">
+<dt id="trie.Node">
+<em class="property">class </em><code class="descclassname">trie.</code><code class="descname">Node</code><span class="sig-paren">(</span><em>data=None</em>, <em>label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trie.html#Node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trie.Node" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class implements Nodes of a Trie.</p>
+<p>Normal usage of the class is</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;d&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="s2">&quot;da&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n</span>
+<span class="go">&lt;data --&gt; d (children=[&#39;da&#39;])&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n</span><span class="p">[</span><span class="s2">&quot;da&quot;</span><span class="p">]</span>
+<span class="go">&lt;data --&gt; da (children=[])&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n</span><span class="p">[</span><span class="s2">&quot;daa&quot;</span><span class="p">]</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">KeyError</span>: <span class="n">&#39;daa&#39;</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="trie.Node.add_child">
+<code class="descname">add_child</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trie.html#Node.add_child"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trie.Node.add_child" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add child to node.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>str</em>) &#8211; The identifier of the node in the Trie</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="trie.Trie">
+<em class="property">class </em><code class="descclassname">trie.</code><code class="descname">Trie</code><a class="reference internal" href="_modules/trie.html#Trie"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trie.Trie" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class implements a Trie data structure using BFS as the search algorithm within the Trie</p>
+<p>Normal usage of the class should be done from the UI/UX interface
+by calling the Trie.from_prefix method for every character chosen by 
+the user.</p>
+<p>Nonetheless, an example is</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Trie</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Dartford&quot;</span><span class="p">,</span> <span class="s2">&quot;Dartmouth&quot;</span><span class="p">,</span> <span class="s2">&quot;Tower Hill&quot;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="s2">&quot;Derby&quot;</span><span class="p">,</span> <span class="s2">&quot;Liverpool&quot;</span><span class="p">,</span> <span class="s2">&quot;Liverpool Line Street&quot;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="s2">&quot;Paddington&quot;</span><span class="p">,</span> <span class="s2">&quot;Euston&quot;</span><span class="p">,</span> <span class="s2">&quot;London Bridge&quot;</span><span class="p">,</span> <span class="s2">&quot;Victoria&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">add_words</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">from_prefix</span><span class="p">(</span><span class="s2">&quot;Liverpool&quot;</span><span class="p">)</span>
+<span class="go">{&#39;matches&#39;: [&#39;Liverpool&#39;, &#39;Liverpool Line Street&#39;], &#39;next_chars&#39;: [&#39; &#39;]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">from_prefix</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="go">{&#39;matches&#39;: [], &#39;next_chars&#39;: []}</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="trie.Trie.add_words">
+<code class="descname">add_words</code><span class="sig-paren">(</span><em>words</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trie.html#Trie.add_words"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trie.Trie.add_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add list of words to Trie. Should be used during load period before Trie is used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>words</strong> &#8211; List of strings to be inserted as nodes in the Trie</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body">TypeError</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trie.Trie.from_prefix">
+<code class="descname">from_prefix</code><span class="sig-paren">(</span><em>prefix</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trie.html#Trie.from_prefix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trie.Trie.from_prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check what are the possible words given a prefix. Uses BFS search.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>prefix</strong> (<em>str</em>) &#8211; String from which to check the possible words in the Trie</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Dictionary with the possible words and the next available characters</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">ValueError, TypeError</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trie.Trie.word_exists">
+<code class="descname">word_exists</code><span class="sig-paren">(</span><em>word</em>, <em>ignore_case=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trie.html#Trie.word_exists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trie.Trie.word_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if a given word exists in the Trie.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>word</strong> (<em>str</em>) &#8211; String to check for correspondences in the Trie</li>
+<li><strong>ignore_case</strong> (<em>bool</em>) &#8211; Boolean to indicate if case should be taken into consideration</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">True, False</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last">ValueError, TypeError</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Diogo Pires.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
