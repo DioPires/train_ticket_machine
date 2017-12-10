@@ -39,3 +39,5 @@ The normal usage of the API should be done from the UI/UX interface by calling t
 >>> t.from_prefix("liverpool")
 {'matches': ['Liverpool', 'Liverpool Line Street'], 'next_chars': [' ']}
 ```
+
+For a more detailed documentation of the API, please refer to the contents of the **doc** directory. There you will find an HTML page and a PDF generated using [Sphinx](http://www.sphinx-doc.org/en/stable/), the Python Documentation Generator.
