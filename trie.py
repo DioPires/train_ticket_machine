@@ -186,7 +186,7 @@ class Trie(object):
         result = [entry[0] for entry in result]
 
         # Formatting output result and computing next possible characters
-        result_out = self._output(result, prefix_norm)
+        result_out = self._output(result, prefix_norm.decode("utf8"))
         return result_out
 
     def word_exists(self, word, ignore_case=True):
